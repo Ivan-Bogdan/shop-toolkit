@@ -1,0 +1,49 @@
+.jumbotron {
+    width: 30wh;
+    height: 20vh;
+    color: #fff;
+    background-image: url(https://libreshot.com/wp-content/uploads/2016/07/red-background-book.jpg);
+    background-repeat: no-repeat;
+}
+
+.black-10 {
+    background: #f2f2f2;
+}
+
+.textimage {
+    text-align: center;
+    width: auto;
+    
+}
+.name {
+    background: linen;
+    color: #000;
+    font-weight: bold;
+}
+
+.black-9 {
+    background: #f2f2f2;
+}
+
+.black-8 {
+    background: #f2f2f2;
+}
+
+.cart-badge {
+    font-size: 15px;
+    color: #000;
+}
+.navbar-right {
+    position: absolute;
+    right: 0;
+    background: #167693;
+    background-image: url(https://libreshot.com/wp-content/uploads/2016/07/red-background-book.jpg);
+}
+.navbar-right li {
+    display: inline-block
+}
+
+.navbar-color {
+    background-color: rgb(245, 219, 194)!important;
+    background-image: url(https://libreshot.com/wp-content/uploads/2016/07/red-background-book.jpg);
+}
