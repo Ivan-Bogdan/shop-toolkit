@@ -25,6 +25,11 @@ const productSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
+    author:{
+      type: String,
+      required: true,
+      maxlength: 50,
+    },
     quantity: {
       type: Number,
       required: false,

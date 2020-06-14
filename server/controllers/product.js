@@ -32,9 +32,9 @@ exports.create = (req, res) => {
         error: "Изображение не может быть загружено",
       });
     }
-    const { name, description, price, category } = fields;
+    const { name, description, price, category,author } = fields;
 
-    if (!name || !description || !price || !category) {
+    if (!name || !description || !price || !category || !author) {
       return res.status(400).json({
         error: "Заполните все поля",
       });
@@ -86,9 +86,9 @@ exports.update = (req, res) => {
         error: "Изображение не может быть загружено",
       });
     }
-    const { name, description, price, category, quantity } = fields;
+    const { name, description, price } = fields;
 
-    if (!name || !description || !price || !category || !quantity) {
+    if (!name || !description || !price) {
       return res.status(400).json({
         error: "Заполните все поля",
       });
@@ -219,6 +219,25 @@ exports.listSearch = (req, res) => {
   const query = {};
   if (req.query.search) {
     query.name = { $regex: req.query.search, $options: "i" };
+
+    if (req.query.category && req.query.category != "All") {
+      query.category = req.query.category;
+    }
+    Product.find(query, (err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(products);
+    }).select("-photo");
+  }
+};
+
+exports.listSearchbyAuthor = (req, res) => {
+  const query = {};
+  if (req.query.search) {
+    query.author = { $regex: req.query.search, $options: "i" };
 
     if (req.query.category && req.query.category != "All") {
       query.category = req.query.category;

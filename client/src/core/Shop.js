@@ -5,6 +5,7 @@ import Checkbox from "./Checkbox";
 import { prices } from "./helpers";
 import RadioBox from "./RadioBox";
 import Card from "./Card";
+import SearchbyAuthor from "./SearchbyAuthor";
 
 const Shop = () => {
   const [clientFilters, setClientFilters] = useState({
@@ -118,6 +119,7 @@ const Shop = () => {
         </div>
 
         <div className="col-9">
+        <SearchbyAuthor/>
           <h2 className="mb-4">Методические пособия</h2>
           <div className="row">
             {filteredResults.map((

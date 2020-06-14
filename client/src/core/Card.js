@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import ShowImage from "./Image";
 import "../style.css";
-import { addItems, updateItem, removeItem } from "./helpers";
-import {isAuthenticated } from "../auth/index";
+
+import { isAuthenticated } from "../../src/auth/index";
+
+import { addItems, updateItem, removeItem ,deleteProduct} from "./helpers";
 import moment from "moment";
 import "moment/locale/ru";
 moment.locale("ru");
@@ -18,6 +20,7 @@ const Card = ({
   run = undefined,
 }) => {
   const [redirect, setRedirect] = useState(false);
+  const { user, token } = isAuthenticated();
   const [count, setCount] = useState(product.count);
 
   const showViewButton = (showViewProductButton) => {
@@ -44,6 +47,23 @@ const Card = ({
     );
   };
 
+  const showDeleteButton = (showViewProductButton) => {
+    return (
+      showViewProductButton && (
+        <Link to={`/`}>
+        <button
+        onClick={() => {
+          deleteProduct(user._id,product._id,token);
+        }}
+        className="btn btn-outline-warning mt-2 mb-2 ml-2"
+      >
+        Удалить
+      </button>
+      </Link>
+      )
+    );
+  };
+
  /*  const showdeleteButton = (showViewProductButton) => {
     return (
       showViewProductButton && (
@@ -62,8 +82,6 @@ const Card = ({
     });
   };
 
-  
-  
   const shouldRedirect = (redirect) => {
     if (redirect) {
       return <Redirect to="/cart" />;
@@ -161,8 +179,10 @@ const Card = ({
         {showRemoveButton(showRemoveProductButton)}
         {isAuthenticated() && isAuthenticated().user.role === 1 && 
     showUpdateButton(showViewProductButton)
-    }
-
+        }
+        {isAuthenticated() && isAuthenticated().user.role === 1 && 
+    showDeleteButton(showViewProductButton)
+        }
       </div>
     </div>
   );

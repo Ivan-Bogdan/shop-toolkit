@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../core/Layout";
-import { read} from "../core/index"
+import { Link } from "react-router-dom";
+import { read } from "../core/index";
 import { isAuthenticated } from "../auth/index";
-import { createProduct, getCategories ,updateProduct} from "./index";
+import {getCategories, updateProduct } from "./index";
 
 const UpdateProduct = (props) => {
   const [product, setProduct] = useState({});
@@ -11,30 +12,30 @@ const UpdateProduct = (props) => {
     name: product.name,
     description: product.description,
     price: product.price,
-    categories: [],
-    category: product.category,
+    //categories: [],
+    // category: product.category,
     quantity: product.quantity,
     download: product.download,
     photo: product.photo,
     loading: false,
     error: "",
-    createdProduct: "",
+    updatedProduct: "",
     redirectToProfile: false,
-    formData: "",
+    formData: new FormData(),
   });
 
   const {
     name,
     description,
     price,
-    categories,
-    category,
+   // categories,
+    //category,
     quantity,
     download,
     photo,
     loading,
     error,
-    createdProduct,
+    updatedProduct,
     redirectToProfile,
     formData,
   } = values;
@@ -47,7 +48,7 @@ const UpdateProduct = (props) => {
         setValues({ ...values, categories: data, formData: new FormData() });
       }
     });
-  }; 
+  };
 
   const loadSingleProduct = (productId) => {
     read(productId).then((data) => {
@@ -55,14 +56,10 @@ const UpdateProduct = (props) => {
         setValues({ ...values, error: data.error });
       } else {
         setProduct(data);
+        setValues({ ...values, ...data });
       }
     });
   };
-
-/*   useEffect(() => {
-    init();
-  }, []); */
-
 
   useEffect(() => {
     const productId = props.match.params.productId;
@@ -80,7 +77,7 @@ const UpdateProduct = (props) => {
     event.preventDefault();
     setValues({ ...values, error: "", loading: true });
 
-    updateProduct(user._id,product._id, token, formData).then((data) => {
+    updateProduct(user._id, product._id, token, formData).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {
@@ -93,13 +90,11 @@ const UpdateProduct = (props) => {
           quantity: "",
           download: null,
           loading: false,
-          createdProduct: data.name,
+          updatedProduct: data.name,
         });
       }
     });
   };
-
-  
 
   const newPostForm = () => (
     <form className="mb-3" onSubmit={handleSubmit}>
@@ -144,7 +139,7 @@ const UpdateProduct = (props) => {
         />
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label className="text-muted">Категория</label>
         <select onChange={handleChange("category")} className="form-control">
           <option>--></option>
@@ -156,16 +151,6 @@ const UpdateProduct = (props) => {
               </option>
             ))}
         </select>
-      </div>
-
-      {/* <div className="form-group">
-        <label className="text-muted">Количество</label>
-        <input
-          onChange={handleChange("quantity")}
-          type="number"
-          className="form-control"
-          value={quantity}
-        />
       </div> */}
 
       <div className="form-group">
@@ -177,10 +162,10 @@ const UpdateProduct = (props) => {
           value={download}
         />
       </div>
-
       <button className="btn btn-outline-primary" to="/">
-        Добавить
+        Изменить
       </button>
+      
     </form>
   );
 
@@ -197,10 +182,10 @@ const UpdateProduct = (props) => {
   const showSuccess = () => (
     <div
       className="alert alert-info"
-      style={{ display: createdProduct ? "" : "none" }}
+      style={{ display: updatedProduct ? "" : "none" }}
     >
       {" "}
-      <h2>{`${createdProduct}`} создано</h2>{" "}
+      <h2>{`${updatedProduct}`} изменено</h2>{" "}
     </div>
   );
 
@@ -212,14 +197,14 @@ const UpdateProduct = (props) => {
     );
 
   return (
-    <Layout title="Добавить методическое пособие" description>
+    <Layout title="Изменение методическое пособие" description>
       <div className="row">
         <div className="col-md-8 offset-md-2">
           {showLoading()}
           {showSuccess()}
           {showError()}
           {newPostForm()}
-          {console.log(product)}
+          {console.log(values)}
         </div>
       </div>
     </Layout>

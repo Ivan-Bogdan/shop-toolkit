@@ -11,6 +11,7 @@ const AddProduct = () => {
     price: "",
     categories: [],
     category: "",
+    author:"",
     quantity: "",
     download: null,
     photo: "",
@@ -27,6 +28,7 @@ const AddProduct = () => {
     price,
     categories,
     category,
+    author,
     quantity,
     download,
     photo,
@@ -103,6 +105,16 @@ const AddProduct = () => {
           type="text"
           className="form-control"
           value={name}
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="text-muted">Автор</label>
+        <input
+          onChange={handleChange("author")}
+          type="text"
+          className="form-control"
+          value={author}
         />
       </div>
 

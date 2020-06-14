@@ -1,3 +1,5 @@
+import { API } from "../config";
+
 export const addItems = (item, next) => {
   let cart = [];
   if (typeof window !== "undefined") {
@@ -65,6 +67,22 @@ export const removeItem = (productId) => {
   }
   return cart;
 };
+
+export const deleteProduct = (userId,productID, token) => {
+  return fetch(`${API}/product/${productID}/${userId}`, {
+      method: 'DELETE',
+      headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+      }
+  })
+      .then(response => {
+          return response.json()
+      })
+      .catch(err => {
+          console.log(err)
+      })
+}; 
 
 export const prices = [
   {

@@ -71,6 +71,17 @@ export const list = (params) => {
     .catch((err) => console.log(err));
 };
 
+export const listAuthor = (params) => {
+  const query = queryString.stringify(params); 
+  return fetch(`${API}/products/author/search?${query}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
 export const listRelated = (productId) => {
   return fetch(`${API}/products/related/${productId}`, {
     method: "GET",
