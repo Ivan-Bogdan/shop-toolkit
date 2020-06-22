@@ -1,18 +1,18 @@
 exports.userSignupValidator = (req, res, next) => {
-    req.check('name', "Name is required").notEmpty();
-    req.check("email", "Email is must be 3 to 32 characters")
+    req.check('name', "Имя обязательно").notEmpty();
+    req.check("email", "Адрес электронной почты должен быть от 3 до 32 символов")
         .matches(/.+\@.+\..+/)
-        .withMessage("Email  you entered is incorrect")
+        .withMessage("Неверный адрес электронной почты")
         .isLength({
             min: 4,
             max: 32
         });
-    req.check("password", "Password is required").notEmpty();
+    req.check("password", "Пароль обязательное поле").notEmpty();
     req.check("password")
         .isLength({ min: 6 })
-        .withMessage("Password must contain at least 6 characters")
+        .withMessage("Пароль должен содержать не менее 6 символов")
         .matches(/\d/)
-        .withMessage("Password must contain a number");
+        .withMessage("Пароль должен содержать хоть одну цифру");
     const errors = req.validationErrors();
     if (errors) {
         const firstError = errors.map((error) => error.msg)[0];

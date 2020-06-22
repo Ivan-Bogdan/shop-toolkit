@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../core/Layout";
-import { Link } from "react-router-dom";
 import { read } from "../core/index";
 import { isAuthenticated } from "../auth/index";
-import {getCategories, updateProduct } from "./index";
+import { getCategories, updateProduct } from "./index";
 
 const UpdateProduct = (props) => {
   const [product, setProduct] = useState({});
   const { user, token } = isAuthenticated();
   const [values, setValues] = useState({
     name: product.name,
+    author: product.author,
     description: product.description,
     price: product.price,
     //categories: [],
@@ -26,17 +26,13 @@ const UpdateProduct = (props) => {
 
   const {
     name,
+    author,
     description,
     price,
-   // categories,
-    //category,
-    quantity,
     download,
-    photo,
     loading,
     error,
     updatedProduct,
-    redirectToProfile,
     formData,
   } = values;
 
@@ -84,6 +80,7 @@ const UpdateProduct = (props) => {
         setValues({
           ...values,
           name: "",
+          author: "",
           description: "",
           photo: "",
           price: "",
@@ -121,6 +118,16 @@ const UpdateProduct = (props) => {
       </div>
 
       <div className="form-group">
+        <label className="text-muted">Автор</label>
+        <input
+          onChange={handleChange("author")}
+          type="text"
+          className="form-control"
+          value={author}
+        />
+      </div>
+
+      <div className="form-group">
         <label className="text-muted">Описание</label>
         <textarea
           onChange={handleChange("description")}
@@ -139,20 +146,6 @@ const UpdateProduct = (props) => {
         />
       </div>
 
-      {/* <div className="form-group">
-        <label className="text-muted">Категория</label>
-        <select onChange={handleChange("category")} className="form-control">
-          <option>--></option>
-          {categories &&
-            categories.map((category, i) => (
-              <option key={i} value={category._id}>
-                {" "}
-                {category.name}{" "}
-              </option>
-            ))}
-        </select>
-      </div> */}
-
       <div className="form-group">
         <label className="text-muted">ссылка на пособие</label>
         <input
@@ -165,7 +158,6 @@ const UpdateProduct = (props) => {
       <button className="btn btn-outline-primary" to="/">
         Изменить
       </button>
-      
     </form>
   );
 

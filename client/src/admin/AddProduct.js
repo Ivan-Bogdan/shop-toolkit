@@ -11,7 +11,7 @@ const AddProduct = () => {
     price: "",
     categories: [],
     category: "",
-    author:"",
+    author: "",
     quantity: "",
     download: null,
     photo: "",
@@ -27,15 +27,11 @@ const AddProduct = () => {
     description,
     price,
     categories,
-    category,
     author,
-    quantity,
     download,
-    photo,
     loading,
     error,
     createdProduct,
-    redirectToProfile,
     formData,
   } = values;
 
@@ -81,8 +77,6 @@ const AddProduct = () => {
       }
     });
   };
-
-  
 
   const newPostForm = () => (
     <form className="mb-3" onSubmit={handleSubmit}>
@@ -150,16 +144,6 @@ const AddProduct = () => {
             ))}
         </select>
       </div>
-
-      {/* <div className="form-group">
-        <label className="text-muted">Количество</label>
-        <input
-          onChange={handleChange("quantity")}
-          type="number"
-          className="form-control"
-          value={quantity}
-        />
-      </div> */}
 
       <div className="form-group">
         <label className="text-muted">ссылка на пособие</label>

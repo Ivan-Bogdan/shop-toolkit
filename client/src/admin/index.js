@@ -1,7 +1,5 @@
 import { API } from "../config";
 
-// принимает user_id - сгенерирован uuid, админ который зарегался, его токен, который сгенерирован - jsonwebtoken, название категории - Women
-// данные идут на сервер, по
 export const createCategory = (userId, token, category) => {
   return fetch(`${API}/category/create/${userId}`, {
     method: "POST",
@@ -37,22 +35,22 @@ export const createProduct = (userId, token, product) => {
     });
 };
 
- export const updateProduct = (userId,productID, token, product) => {
-    return fetch(`${API}/product/${productID}/${userId}`, {
-        method: 'PUT',
-        headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: product
+export const updateProduct = (userId, productID, token, product) => {
+  return fetch(`${API}/product/${productID}/${userId}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: product,
+  })
+    .then((response) => {
+      return response.json();
     })
-        .then(response => {
-            return response.json()
-        })
-        .catch(err => {
-            console.log(err)
-        })
-}; 
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const getCategories = () => {
   return fetch(`${API}/categories`, {

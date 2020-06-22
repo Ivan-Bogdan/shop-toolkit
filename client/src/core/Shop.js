@@ -13,7 +13,7 @@ const Shop = () => {
   });
   const [categories, setCategories] = useState([]);
 
-  const [error, setError] = useState(false);
+  const [setError] = useState(false);
   const [limit] = useState(6);
   const [skip, setSkip] = useState(0);
   const [size, setSize] = useState(0);
@@ -30,17 +30,16 @@ const Shop = () => {
   };
   //act2
   const loadFilteredResults = (newFilterFromState) => {
-    getFilteredProducts(skip, limit, newFilterFromState) 
-      .then((data) => {
-        //act 7
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setFilteredResults(data.data);
-          setSize(data.size);
-          setSkip(0);
-        }
-      });
+    getFilteredProducts(skip, limit, newFilterFromState).then((data) => {
+      //act 7
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setFilteredResults(data.data);
+        setSize(data.size);
+        setSkip(0);
+      }
+    });
   };
 
   const loadMoreProducts = () => {
@@ -71,20 +70,19 @@ const Shop = () => {
     init();
     loadFilteredResults(skip, limit, clientFilters.filters);
   }, []);
-  //act 1
   const handleFilters = (filters, filterBy) => {
-    const newFilters = { ...clientFilters }; 
-    newFilters.filters[filterBy] = filters; 
+    const newFilters = { ...clientFilters };
+    newFilters.filters[filterBy] = filters;
     if (filterBy === "price") {
-      let priceValues = handlePrice(filters); 
-      newFilters.filters[filterBy] = priceValues; 
+      let priceValues = handlePrice(filters);
+      newFilters.filters[filterBy] = priceValues;
     }
-    loadFilteredResults(clientFilters.filters); 
-    setClientFilters(newFilters); 
+    loadFilteredResults(clientFilters.filters);
+    setClientFilters(newFilters);
   };
 
   const handlePrice = (value) => {
-    const data = prices; 
+    const data = prices;
     let array = [];
 
     for (let key in data) {
@@ -94,8 +92,6 @@ const Shop = () => {
     }
     return array;
   };
-
- 
 
   return (
     <Layout title="Магазин" description="">
@@ -119,13 +115,10 @@ const Shop = () => {
         </div>
 
         <div className="col-9">
-        <SearchbyAuthor/>
+          <SearchbyAuthor />
           <h2 className="mb-4">Методические пособия</h2>
           <div className="row">
-            {filteredResults.map((
-              product,
-              i
-            ) => (
+            {filteredResults.map((product, i) => (
               <div key={i} className="col-4 mb-3">
                 <Card product={product} />
               </div>

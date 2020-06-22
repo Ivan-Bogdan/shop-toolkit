@@ -64,6 +64,7 @@ const Dashboard = () => {
               >
                 {showInput("Название", product.name)}
                 {showInput("Цена", product.amount + " BYN")}
+                {showInput("Ссылка", product.download)}
               </div>
             ))}{" "}
           </li>

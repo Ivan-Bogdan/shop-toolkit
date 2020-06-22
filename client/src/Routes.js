@@ -9,7 +9,6 @@ import Dashboard from "./user/Dashboard";
 import Admin from "./user/Admin";
 import AddCategory from "./admin/AddCategory";
 import AddProduct from "./admin/AddProduct";
-import ListProd from "./admin/ListProd";
 import Shop from "./core/Shop";
 import Product from "./core/Product";
 import Cart from "./core/Cart";

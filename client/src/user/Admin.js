@@ -24,11 +24,6 @@ const Admin = () => {
             </Link>
           </li>
           <li className="list-group-item">
-            <Link className="nav-link" to="/products/list">
-              Редактировать пособия
-            </Link>
-          </li>
-          <li className="list-group-item">
             <Link className="nav-link" to="/admin/orders">
               Список заказов
             </Link>

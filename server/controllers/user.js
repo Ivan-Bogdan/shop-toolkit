@@ -27,7 +27,7 @@ exports.update = (req, res) => {
         (err, user) => {
             if (err) {
                 res.status(400).json({
-                    error: 'you are not auth to perfom this actions'
+                    error: 'Вы не авторизованы для выполнения этих действий'
                 });
             }
             user.hashed_password = undefined;
@@ -43,6 +43,7 @@ exports.addOrderUserHistroy = (req, res, next ) => {
             _id: element._id,
             name: element.name,
             description: element.description,
+            download: element.download,
             category: element.category,
             quantity: element.quantity,
             transaction_id: req.body.transaction_id,

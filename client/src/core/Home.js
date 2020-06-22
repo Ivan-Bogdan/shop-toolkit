@@ -5,9 +5,9 @@ import Card from "./Card";
 import Search from "./Search";
 
 const Home = () => {
-  const [productsBySell, setProductBySell] = useState([]);
+  const [setProductBySell] = useState([]);
   const [productsByArrival, setProductByArrival] = useState([]);
-  const [error, setError] = useState(false);
+  const [setError] = useState(false);
 
   const loadProductsBySell = () => {
     getProducts("sold").then((data) => {

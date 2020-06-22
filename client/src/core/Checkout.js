@@ -32,10 +32,6 @@ const Checkout = ({ products }) => {
     getToken(userId, token);
   }, []);
 
-  const handleAddress = (event) => {
-    setData({ ...data, address: event.target.value });
-  };
-
   const getTotal = () => {
     return products.reduce((acc, nextValue) => {
       return parseFloat((acc + nextValue.count * nextValue.price).toFixed(1));
@@ -44,7 +40,7 @@ const Checkout = ({ products }) => {
 
   const showCheckout = () => {
     return isAuthenticated() ? (
-      <div> {showDropIn()}} </div>
+      <div> {showDropIn()} </div>
     ) : (
       <Link to="/signin">
         <button className="btn btn-primary">Войти</button>
@@ -52,17 +48,16 @@ const Checkout = ({ products }) => {
     );
   };
 
-  const google = () => {
-
+  const download = () => {
     return products.map((product) => {
-      window.open(product.download);
+      return window.open(product.download);
     }, 0);
   };
 
   const byuProducts = () => {
     setData({ loading: true });
     let nonce;
-    let getNonce = data.instance
+    data.instance
       .requestPaymentMethod()
       .then((data) => {
         nonce = data.nonce;
@@ -110,15 +105,14 @@ const Checkout = ({ products }) => {
 
   const showDownload = (success) => (
     <Link to="/">
-        <button
-      className="alert alert-info"
-      onClick = {google.bind(this)}
-      style={{ display: success ? "" : "none" }}
-    >
-      скачать
-    </button>
-      </Link>
-    
+      <button
+        className="alert alert-info"
+        onClick={download.bind(this)}
+        style={{ display: success ? "" : "none" }}
+      >
+        скачать
+      </button>
+    </Link>
   );
 
   const showSuccess = (success) => (

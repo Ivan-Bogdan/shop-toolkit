@@ -5,7 +5,7 @@ import "../style.css";
 
 import { isAuthenticated } from "../../src/auth/index";
 
-import { addItems, updateItem, removeItem ,deleteProduct} from "./helpers";
+import { addItems, updateItem, removeItem, deleteProduct } from "./helpers";
 import moment from "moment";
 import "moment/locale/ru";
 moment.locale("ru");
@@ -21,7 +21,7 @@ const Card = ({
 }) => {
   const [redirect, setRedirect] = useState(false);
   const { user, token } = isAuthenticated();
-  const [count, setCount] = useState(product.count);
+  const [setCount] = useState(product.count);
 
   const showViewButton = (showViewProductButton) => {
     return (
@@ -51,30 +51,18 @@ const Card = ({
     return (
       showViewProductButton && (
         <Link to={`/`}>
-        <button
-        onClick={() => {
-          deleteProduct(user._id,product._id,token);
-        }}
-        className="btn btn-outline-warning mt-2 mb-2 ml-2"
-      >
-        Удалить
-      </button>
-      </Link>
-      )
-    );
-  };
-
- /*  const showdeleteButton = (showViewProductButton) => {
-    return (
-      showViewProductButton && (
-        <Link to={`/product/${product._id}/${user._id}`}>
-          <button className="btn btn-outline-primary mt-2 mb-2">
+          <button
+            onClick={() => {
+              deleteProduct(user._id, product._id, token);
+            }}
+            className="btn btn-outline-warning mt-2 mb-2 ml-2"
+          >
             Удалить
           </button>
         </Link>
       )
     );
-  }; */
+  };
 
   const addToCart = () => {
     addItems(product, () => {
@@ -117,36 +105,6 @@ const Card = ({
     );
   };
 
-
-
-  /* const showCartUpdateOptions = (cartUpdate) => {
-    return (
-      cartUpdate && (
-        <div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <span className="input-group-text">Количество</span>
-            </div>
-            <input
-              type="number"
-              className="form-control"
-              value={count}
-              onChange={handleChange(product._id)}
-            />
-          </div>
-        </div>
-      )
-    );
-  }; */
-  
-  const handleChange = (productId) => (event) => {
-    setRun(!run);
-    setCount(event.target.value < 1 ? 1 : event.target.value);
-    if (event.target.value >= 1) {
-      updateItem(productId, event.target.value);
-    }
-  };
-
   const showStock = (quantity) => {
     return quantity > 0 ? (
       <span className="badge badge-primary badge-pill">В наличии</span>
@@ -158,9 +116,11 @@ const Card = ({
   return (
     <div className="card">
       <div className="card-header name">{product.name}</div>
-      <div className="card-body" >
+      <div className="card-body">
         {shouldRedirect(redirect)}
-        <div className = "textimage"><ShowImage item={product} url="product" /> </div>
+        <div className="textimage">
+          <ShowImage item={product} url="product" />{" "}
+        </div>
         <p className="lead mt-2">{product.description.substring(0, 150)}</p>
         <p className="black-10 text-danger">{product.price} BYN</p>
         <p className="black-9">
@@ -177,12 +137,12 @@ const Card = ({
         {showViewButton(showViewProductButton)}
         {showAddToCart(showAddToCartButton)}
         {showRemoveButton(showRemoveProductButton)}
-        {isAuthenticated() && isAuthenticated().user.role === 1 && 
-    showUpdateButton(showViewProductButton)
-        }
-        {isAuthenticated() && isAuthenticated().user.role === 1 && 
-    showDeleteButton(showViewProductButton)
-        }
+        {isAuthenticated() &&
+          isAuthenticated().user.role === 1 &&
+          showUpdateButton(showViewProductButton)}
+        {isAuthenticated() &&
+          isAuthenticated().user.role === 1 &&
+          showDeleteButton(showViewProductButton)}
       </div>
     </div>
   );
