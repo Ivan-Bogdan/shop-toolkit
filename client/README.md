@@ -1,2 +1,2 @@
-# ecommerce-app
+# shop toolkit
 
